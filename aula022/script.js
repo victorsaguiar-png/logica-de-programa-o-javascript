@@ -1,15 +1,5 @@
 const divListaFilmes = document.querySelector("#lista_filmes")
-const btnTerror = document.querySelector("#btn_terror")
-
-function filtrarFilmesTerror() {
-    const filmesTerror = filmes.filter((filme)=> {
-        return filme.genero === "terror"
-    })
-
-    console.log(filmesTerror)
-} 
-
-btnTerror.addEventListener("click", filtrarFilmesTerror)
+const botoesGenero = document.querySelectorAll("[data-genero]")
 
 const filmes = [
   // TERROR (10)
@@ -71,8 +61,21 @@ const filmes = [
 { titulo: "Horizonte Perdido", sinopse: "Exploradores buscam uma terra lendária.", genero: "aventura" },
 { titulo: "Deserto Infinito", sinopse: "Sobrevivência em um ambiente hostil.", genero: "aventura" },
 { titulo: "Rota Selvagem", sinopse: "Uma viagem cheia de perigos e descobertas.", genero: "aventura" }
-]; // 50
+]; 
 
-/* filmes.forEach((filme)=>{
-    divListaFilmes.innerHTML += `<li><b>${filme.titulo}</b> <br> ${filme.sinopse} <br> Genero: <i>${filme.genero}</i></li>`
-}) */
+function filtrarFilmes(genero) {
+    divListaFilmes.innerHTML = ""
+    const filmesTerror = filmes.filter((filme)=> {
+        return filme.genero === genero
+    })
+    filmesTerror.forEach((filme) => {
+        divListaFilmes.innerHTML += `<li><b>${filme.titulo}</b> <br>${filme.sinopse} <br><i>${filme.genero}</i></li>`
+    })
+} 
+
+botoesGenero.forEach((botao)=> {
+    botao.addEventLister("click", () => {
+        const genero = botao.dataset.genero
+        filtrarFilmes(genero)
+    })
+})
